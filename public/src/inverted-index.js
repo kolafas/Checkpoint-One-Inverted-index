@@ -183,6 +183,7 @@ window.invertedIndex = (function (){
 
 
     return {
-        createIndex:createIndex
+        createIndex:createIndex,
+        searchIndex:searchIndex
     }
 })();
