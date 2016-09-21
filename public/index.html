@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>Inverted Index</title>
+        <!--BOOTSTRAP CSS-->
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+        <!--FONT-AWESOME CSS-->
+        <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css"/>
+        <!--MY STYLE CSS-->
+        <link rel="stylesheet" href="css/style.css"/>
+        
+        <script src="src/inverted-index.js"></script>
+        <script type="text/javascript" src="angular/angular.min.js"></script>
+
+        <script type="text/javascript" src="angular/app.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+    <body ng-app="invertedIndexApp">
+      
+        <div class="wrapper" style="padding:30px" ng-controller="invertedIndexCtrl">
+            <div class="row">
+              <div class="col-md-5">
+                <div class="well no-round" style="height:600px;">
+                    <button class="btn btn-success no-round btn-long" data-toggle="modal" data-target="#chooseFile">Upload File</button>
+                   
+                    <!--showing indexed data --->
+                    <div class="panel panel-primary no-round" ng-repeat="(fileName, documents) in indexMap">
+                        <div class="panel-heading no-round">
+                            {{fileName}}
+                        </div>
+                        <div class="panel-body" style="overflow:auto; height:300px">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Keywords</th>
+                                    <th ng-repeat="id in documents.size">Doc {{ id }}</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(keyword, source) in documents.indexedData">
+                                      <td>{{ keyword }}</td>
+                                      <td ng-repeat="id in documents.size">
+                                        <span ng-if="source[id]">
+                                          <i class="fa fa-check"></i>
+                                        </span>
+                                        <span ng-if="source[id] === undefined">
+                                            <i class="fa fa-asterisk"></i>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end of index data-->
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="well no-round" style="height:600px;">
+                  <div class="form-group">
+                      <div class="input-group">
+                          <span class="input-group-btn" style="border-color: #eee; border-right: 1px thin #eee">
+                              <select class="btn select-btn no-round" ng-model="choose">
+                                <option value="">Search All files</option>
+                                <option ng-repeat="(key, value) in rawIndex" ng-value="value.name">{{ key }}</option>
+                              </select>
+
+                          </span>
+                          <input type="text" class="form-control input-style" style="height:50px " ng-model="search">
+                          <span ng-click="searchIndex()" class="no-round search-btn input-group-addon btn" style="background color:#f2f2;border:1px solid #eee">
+                                  <i class="icon fa fa-search"></i>
+                          </span>
+                      </div>
+                </div>
+
+                <!--end of form-->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-info my-alert no-round" ng-repeat="search in searchResult">
+                        <h3>{{ search.source.title }}</h3>
+                        <h5>{{ search.source.text }}</h5>
+                         <h3 ng-if="key.length < 0" ng-show>No results</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="chooseFile">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>Pick File</h3>
+                    </div>
+                    <div class="modal-body">
+                        <label class="btn btn-primary btn-long no-round" for="file">Choose FIle</label>
+                        <input type="file" class="hidden" id="file" the-file-selected="json" file-loaded="checkLoad()" file-error="callError()"  ng-model="file"/>
+
+                        <div class="row">
+                            <div class="col-md-6" ng-repeat="(fileName, document) in rawIndex">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                          <div class="col-md-8">
+                                              <h5 class=""> {{ fileName }} </h5>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <button class="btn no-round btn-default pull-right" ng-click="createIndex(fileName)">Create Index</button>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

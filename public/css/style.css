@@ -1,0 +1,40 @@
+.no-round {
+    border-radius: 0px;
+}
+
+.modal-body label {
+    padding-top: 15px !important;
+}
+
+.text-white{
+    color:#fff;
+}
+
+.btn-long {
+  width:100% !important;
+  height:50px !important;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.search-btn{
+    background-color: #fff !important;
+    border-left:1px solid !important;
+    border-color:white !important;
+}
+
+.select-btn {
+  height:50px !important;
+  border-right:1px solid #eee;
+}
+
+.input-style {
+  border-color: white !important;
+  box-shadow: none;
+  border-right:1px solid #eee !important;
+}
+
+.my-alert{
+    box-shadow: 5px 3px 8px 0px;
+    padding-top:0px;
+}
