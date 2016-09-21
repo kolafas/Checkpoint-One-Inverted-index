@@ -117,9 +117,73 @@ window.invertedIndex = (function (){
             });
         }
 
+                /*
+        * This function takes in terms with spaces, commas and other alpha-numerical characters
+        * It also takes in the mapped index created from the files and a callback to send notification of error or returns a result
+        * @params {object} indexMap
+        * @params {string} theTerms
+        * @params {function} done
+        */
+
+        function searchIndex(theTerms, indexMap, done){
+                var searchResult = [];
+                var terms = [];
+                var isEmpty = "";
+                delete indexMap[isEmpty];
+                var theFileName = Object.keys(indexMap);
+                console.log(theFileName);
+                console.log(indexMap);
+                //check if a doc already exists in the search result
+                var resultExist = function(docId){
+                    for(var i=0; i < searchResult.length; i++) {
+                        if(searchResult[i].source.title === docId.source.title && searchResult[i].source.text === docId.source.text){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+
+                var splitedTerms = theTerms.split(' ');
+                console.log(splitedTerms);
+                splitedTerms.forEach(function(term) {
+                        var searchToken = tokenize(term);
+                        var terms = [];
+
+                        //Check if the terms have been used during the present search
+                        if(terms.indexOf(searchToken) < 0) {
+                            theFileName.forEach(function (name){
+                                if(indexMap[name].indexedData[searchToken]) {
+                                    //iterate the documents with id
+                                    Object.keys(indexMap[name].indexedData[searchToken]).forEach(function (id) {
+                                        //add a unique document in the result
+                                        var documents = indexMap[name].indexedData[searchToken][id];
+                                        //check if the search result has the document alreadt to prevent duplicate entry
+                                        if(!resultExist(documents)) {
+                                            searchResult.push(documents);
+                                        }
+                                    });
+                                }
+                            });
+
+                            //keep track of used terms
+                            terms.push(searchToken);
+
+                        }
+                });
+                //return the searchResult through the callback
+
+                done(null, {
+                    data: searchResult
+                });
+
+
+        }
+
 
 
     return {
-        createIndex:createIndex
+        createIndex:createIndex,
+        searchIndex:searchIndex
     }
 })();
