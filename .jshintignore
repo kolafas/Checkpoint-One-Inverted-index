@@ -1,0 +1,3 @@
+*.*
+!jasmine/spec/**/*.js
+!public/src/**/*.js
