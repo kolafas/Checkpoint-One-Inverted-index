@@ -1,4 +1,4 @@
-window.invertedIndex = (function (){
+window.Index = (function (){
 
 
 
@@ -98,14 +98,14 @@ window.invertedIndex = (function (){
                 //indexing the title
                 //split the title into an array
                 var badTitleTokens = currDoc.title.split(" ");
-                //console.log(badTitleTokens);
+                //////console.log(badTitleTokens);
                 //send the data to the indexBot
                 indexBot(badTitleTokens, titlePriority, currDoc, i);
 
                 //Indexing the text
                 //split the text into an array
                 var badTextTokens = currDoc.text.split(" ");
-                //console.log(badTextTokens);
+                ////console.log(badTextTokens);
                 indexBot(badTextTokens, textPriority, currDoc, i);
             }
 
@@ -131,8 +131,8 @@ window.invertedIndex = (function (){
                 var isEmpty = "";
                 delete indexMap[isEmpty];
                 var theFileName = Object.keys(indexMap);
-                console.log(theFileName);
-                console.log(indexMap);
+                ////console.log(theFileName);
+                ////console.log(indexMap);
                 //check if a doc already exists in the search result
                 var resultExist = function(docId){
                     for(var i=0; i < searchResult.length; i++) {
@@ -145,7 +145,7 @@ window.invertedIndex = (function (){
                 }
 
                 var splitedTerms = theTerms.split(' ');
-                console.log(splitedTerms);
+                ////console.log(splitedTerms);
                 splitedTerms.forEach(function(term) {
                         var searchToken = tokenize(term);
                         var terms = [];

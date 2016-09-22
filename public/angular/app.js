@@ -59,7 +59,7 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
         //using the fileName to get the stored data from the indexMap
         var fileData = $scope.rawIndex[fileName];
         //send  the data for indexing and use a callback to get the result or errors
-        invertedIndex.createIndex(fileData, function(err, result) {
+        Index.createIndex(fileData, function(err, result) {
             if(err) {
                 $scope.error = "Oops you got an invalid file";
             }else{
@@ -97,7 +97,7 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
         console.log($scope.searchResult);
         var terms = $scope.search;
         // console.log($scope.indexMap);
-        invertedIndex.searchIndex(terms, $scope.setIndex, function(err, result) {
+        Index.searchIndex(terms, $scope.setIndex, function(err, result) {
             if(err) {
                 console.log("error in your file");
             }else{
@@ -113,7 +113,7 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
         console.log($scope.setIndex);
         $scope.setIndex[$scope.choose] = angular.copy($scope.indexMap[$scope.choose]);
         var terms = $scope.search;
-        invertedIndex.searchIndex(terms, $scope.setIndex, function(err, result) {
+        Index.searchIndex(terms, $scope.setIndex, function(err, result) {
             if(err) {
                 console.log("error in your file");
             }else{
