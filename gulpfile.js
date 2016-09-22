@@ -17,6 +17,6 @@ gulp.task('serveApp', function () {
         }
     });
     //watch for changes of html, css and js in the public folder.
-    gulp.watch("./public/**/*.{html, css, js}").on("change", f1.reload);
+    gulp.watch("./jasmine/**/*.{html,js,css}").on("change", f1.reload);
 });
 
