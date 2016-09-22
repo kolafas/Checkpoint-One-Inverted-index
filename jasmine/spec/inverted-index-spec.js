@@ -37,7 +37,7 @@ describe("Populate Index", function () {
     });
 
     it("should verify that the index is created once the Json file has been read", function () {
-        var file = {
+        var file =  {
             name: "Mockfile",
             documents: mockFiles
         }
