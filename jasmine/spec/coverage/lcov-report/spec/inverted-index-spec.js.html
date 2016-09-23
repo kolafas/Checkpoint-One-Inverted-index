@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for spec/inverted-index-spec.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">spec/</a> inverted-index-spec.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.92% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.92% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/51</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+&nbsp;
+var mockFiles = [
+        {
+        "title": "Alice of in Wonderland",
+        "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+        },
+&nbsp;
+        {
+        "title": "The Lord of the Rings: The Fellowship of the Ring.",
+        "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+        }
+];
+&nbsp;
+&nbsp;
+//write test to read book data
+describe("Read book data", <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    it("should verify that the files are not empty", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        expect(mockFiles.length&gt;0).toBeTruthy();</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it("should check if all properties in the file are strings", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        mockFiles.forEach(<span class="fstat-no" title="function not covered" >function(document) {</span></span>
+<span class="cstat-no" title="statement not covered" >            expect(typeof document.title === "string").toBeTruthy();</span>
+<span class="cstat-no" title="statement not covered" >            expect(typeof document.text === "string").toBeTruthy();</span>
+        })
+    });
+});
+&nbsp;
+//Populate Index
+&nbsp;
+<span class="cstat-no" title="statement not covered" >describe("Populate Index", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    var indexMap = {};</span>
+     //makes sure to index is empty
+<span class="cstat-no" title="statement not covered" >    beforeAll(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        var indexMap = {};</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it("should verify that the index is created once the Json file has been read", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        var file =  {</span>
+            name: "Mockfile",
+            documents: mockFiles
+        }
+        
+<span class="cstat-no" title="statement not covered" >        Index.createIndex(file, <span class="fstat-no" title="function not covered" >function (err, result) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err) {</span>
+<span class="cstat-no" title="statement not covered" >                throw new Error("Something is wrong");</span>
+            }else {
+<span class="cstat-no" title="statement not covered" >                indexMap[result.fileName] = {</span>
+                    indexedData:result.data
+                }
+                // console.log();
+            }
+<span class="cstat-no" title="statement not covered" >            var keys = Object.keys(indexMap[result.fileName].indexedData);</span>
+<span class="cstat-no" title="statement not covered" >            expect(keys.length &gt; 0).toBeTruthy();</span>
+&nbsp;
+        })
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it("should verify that the index maps the string keys to the correct objects in the JSON array", <span class="fstat-no" title="function not covered" >function () {</span></span>
+        // console.log(indexMap);
+<span class="cstat-no" title="statement not covered" >        var check = [];</span>
+<span class="cstat-no" title="statement not covered" >        Object.keys(indexMap).forEach(<span class="fstat-no" title="function not covered" >function (fileName) {</span></span>
+<span class="cstat-no" title="statement not covered" >            Object.keys(indexMap[fileName].indexedData).forEach(<span class="fstat-no" title="function not covered" >function (tokens) {</span></span>
+<span class="cstat-no" title="statement not covered" >                Object.keys(indexMap[fileName].indexedData[tokens]).forEach(<span class="fstat-no" title="function not covered" >function (keys) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    for(var i=0; i&lt;mockFiles.length;i++){</span>
+<span class="cstat-no" title="statement not covered" >                        var source = indexMap[fileName].indexedData[tokens][keys].source;</span>
+<span class="cstat-no" title="statement not covered" >                        if(source.title === mockFiles[i].title </span>
+                        &amp;&amp; source.text === mockFiles[i].text) {
+<span class="cstat-no" title="statement not covered" >                            check.push(1);</span>
+                            // console.log(check);
+                        }
+                    }
+                })
+            })
+        });
+        // console.log(check);
+<span class="cstat-no" title="statement not covered" >        expect(check.length &gt; 0).toBeTruthy();</span>
+    });
+});
+&nbsp;
+&nbsp;
+&nbsp;
+//writing test for search 
+&nbsp;
+<span class="cstat-no" title="statement not covered" >describe("Search Index", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    var indexMap = {};</span>
+<span class="cstat-no" title="statement not covered" >    var file = {</span>
+        name:"Mockfile",
+        documents: mockFiles
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    beforeEach(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        var searchResults = [];</span>
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    Index.createIndex(file, <span class="fstat-no" title="function not covered" >function (err, result) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new Error("Something went wrong");</span>
+        }else {
+<span class="cstat-no" title="statement not covered" >            indexMap[result.fileName] = {</span>
+                indexedData:result.data
+            }
+        }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    it("should verify that search index function returns an array of the indices to the correct objects that contain the words in the search query", <span class="fstat-no" title="function not covered" >function () {</span></span>
+        
+<span class="cstat-no" title="statement not covered" >        var query = "This is the lord of the rings";</span>
+<span class="cstat-no" title="statement not covered" >        var check = [];</span>
+<span class="cstat-no" title="statement not covered" >        Index.searchIndex(query, indexMap, <span class="fstat-no" title="function not covered" >function (err, result) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err) {</span>
+<span class="cstat-no" title="statement not covered" >                throw new Error("Something is wrong!");</span>
+            }else {
+<span class="cstat-no" title="statement not covered" >                var searchResults = result.data;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                for(var i=0;i&lt;searchResults.length;i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    mockFiles.forEach(<span class="fstat-no" title="function not covered" >function (docs) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if(searchResults[i].source.title === docs.title &amp;&amp; searchResults[i].source.text === docs.text) {</span>
+<span class="cstat-no" title="statement not covered" >                            check.push(1);</span>
+                        }
+                    });
+                }
+<span class="cstat-no" title="statement not covered" >                expect(check.length&gt;0).toBeTruthy();</span>
+            }
+        });
+&nbsp;
+       
+    });
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Sep 23 2016 00:30:49 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
