@@ -1,7 +1,10 @@
-[![Build Status](https://travis-ci.org/kolafas/Checkpoint-One-Inverted-index.svg?branch=develop)](https://travis-ci.org/kolafas/Checkpoint-One-Inverted-index)
+[![Build Status](https://travis-ci.org/andela-akolawole/Checkpoint-One-Inverted-index.svg?branch=develop)](https://travis-ci.org/andela-akolawole/Checkpoint-One-Inverted-index)
 [![Coverage Status](https://coveralls.io/repos/github/kolafas/Checkpoint-One-Inverted-index/badge.svg?branch=coveralls-integration)](https://coveralls.io/github/kolafas/Checkpoint-One-Inverted-index?branch=coveralls-integration)
 # Checkpoint-One-Inverted-index
-This project mimics elastic search implementation of inverted index.
+#### The Inverted Index
+In computer science, an inverted index (also referred to as postings file or inverted file) is an index data structure storing a mapping from content, such as words or numbers, to its locations in a database file, or in a document or a set of documents (named in contrast to a Forward Index, which maps from documents to content). The purpose of an inverted index is to allow fast full text searches, at a cost of increased processing when a document is added to the database.
+
+**Note**: This project mimics elastic search implementation of inverted index.
 
 ## Technologies used for this project
  - [Nodejs](http://nodejs.org)
