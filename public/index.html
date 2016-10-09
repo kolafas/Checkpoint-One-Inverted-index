@@ -15,13 +15,14 @@
         <script type="text/javascript" src="angular/app.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        
     </head>
     <body ng-app="invertedIndexApp">
       
         <div class="wrapper" style="padding:30px" ng-controller="invertedIndexCtrl">
             <div class="row">
               <div class="col-md-5">
-                <div class="well no-round" style="height:600px;">
+                <div class="well no-round" style="min-height:600px; height:auto;">
                     <button class="btn btn-success no-round btn-long" data-toggle="modal" data-target="#chooseFile">Upload File</button>
                    
                     <!--showing indexed data --->
@@ -55,12 +56,13 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <div class="well no-round" style="height:600px;">
+                <div class="well no-round" style="min-height:600px; height:auto;">
                   <div class="form-group">
                       <div class="input-group">
                           <span class="input-group-btn" style="border-color: #eee; border-right: 1px thin #eee">
                               <select class="btn select-btn no-round" ng-model="choose">
-                                <option value="">Search All files</option>
+                                <option value="">Choose an option</option>
+                                <option value="all">Search All files</option>
                                 <option ng-repeat="(key, value) in rawIndex" ng-value="value.name">{{ key }}</option>
                               </select>
 
@@ -74,11 +76,11 @@
 
                 <!--end of form-->
                 <div class="row">
+                  <h3 ng-show="">No results</h3>
                   <div class="col-md-12">
                     <div class="alert alert-info my-alert no-round" ng-repeat="search in searchResult">
                         <h3>{{ search.source.title }}</h3>
                         <h5>{{ search.source.text }}</h5>
-                         <h3 ng-if="key.length < 0" ng-show>No results</h3>
                     </div>
                   </div>
                 </div>
@@ -97,7 +99,17 @@
                     <div class="modal-body">
                         <label class="btn btn-primary btn-long no-round" for="file">Choose FIle</label>
                         <input type="file" class="hidden" id="file" the-file-selected="json" file-loaded="checkLoad()" file-error="callError()"  ng-model="file"/>
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger" ng-show="error">
+                                    <i class="fa fa-warning"></i> Zoom
+                                </div>
+                                <div class="alert alert-success" ng-show="flashMessage.status">
+                                    <i class="fa fa-close pull-right" data-dismiss="alert"></i>
+                                    <i class="fa fa-check-circle"></i> {{ flashMessage.message }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6" ng-repeat="(fileName, document) in rawIndex">
                                 <div class="panel panel-info">
@@ -107,7 +119,7 @@
                                               <h5 class=""> {{ fileName }} </h5>
                                           </div>
                                           <div class="col-md-4">
-                                              <button class="btn no-round btn-default pull-right" ng-click="createIndex(fileName)">Create Index</button>
+                                              <button class="btn no-round btn-default pull-right" id="create-index" ng-click="createIndex(fileName)">Create Index</button>
                                           </div>
                                         </div>
                                     </div>
