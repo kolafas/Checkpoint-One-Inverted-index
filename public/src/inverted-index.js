@@ -4,11 +4,14 @@ window.Index = (function () {
 
     var indexMap = {};
 
-    /*
-    * The tokenize function is written to purify tokens or terms from alpha-numerical characters
-    * @params {string} tokens
-    * @return {string} newToken
-    */
+    /**
+     * Tokenize function
+     * 
+     * The tokenize function is written to purify tokens or terms from alpha-numerical characters
+     * 
+     * @params {string} tokens
+     * @return {string} newToken
+     */
     function tokenize(tokens) {
         var newToken = tokens.trim().replace(/[^a-z0-9]+/gi, '').toLowerCase();
         //send out the new token
@@ -16,9 +19,6 @@ window.Index = (function () {
     }
 
 
-
-    //start searchAll
-    // searchAll functionality enables a user to search through all files
     function searchAll(newKeys) {
         var searchResult = [];
 
@@ -31,7 +31,6 @@ window.Index = (function () {
                     //check if the search result has the document already to prevent duplicate entry
                     if (!resultExist(docs, searchResult)) {
                         searchResult.push(docs);
-                        // console.log(searchResult);
                     }
                 });
             }
@@ -60,7 +59,7 @@ window.Index = (function () {
             });
 
         }
-       
+
         return searchResult;
     }
 
@@ -97,7 +96,8 @@ window.Index = (function () {
                 } else {
                     indexMap[fileName][newToken][id] = {
                         priority: priority,
-                        source: source
+                        source: source,
+                        fileName:fileName
                     };
                 }
             } else {
@@ -106,7 +106,8 @@ window.Index = (function () {
                 //fill up with data
                 indexMap[fileName][newToken][id] = {
                     priority: priority,
-                    source: source
+                    source: source,
+                    fileName:fileName
                 };
             }
         });
@@ -115,20 +116,34 @@ window.Index = (function () {
 
 
 
-    /*
-    * The createIndex function takes in a fileData in json format, it then splits the documents text & title into tokens.
-    * The tokens are not pure because they might contain alpha-numerical characters like commma etc, so it is passed to the
-    * tokenize funtion for purification and a newToken is returned.
-    * The newToken are then mapped in the following order
-    * After the index has been mapped, An error or a result is sent through the callback
-    * @params {object} fileData
-    */
+    /**
+     * Create Index function
+     * 
+     * The createIndex function takes in a fileData in json format, 
+     * it then splits the documents text & title into tokens.
+     * The tokens are not pure because they might contain alpha-numerical
+     * characters like commma etc, so it is passed to the
+     * tokenize funtion for purification and a newToken is returned.
+     * The newToken are then mapped in the following order
+     * After the index has been mapped, An error or a result is sent 
+     * through the callback
+     * 
+     * @params {object} fileDatas
+     */
     function createIndex(fileData) {
 
-        var message = {
-            error: false,
-            success: false
-        };
+        if (fileData.documents === undefined) {
+            return message = {
+                status: false,
+                message: fileData.name + " file is empty"
+            };
+        }
+        if (fileData.documents[0].title === undefined && fileData.documents[0].text === undefined) {
+            return message = {
+                status: false,
+                message: fileData.name + " file is not in the correct format"
+            };
+        }
 
 
         if (typeof fileData === "object") {
@@ -159,27 +174,26 @@ window.Index = (function () {
                 //Indexing the text
                 //split the text into an array
                 var badTextTokens = currDoc.text.split(" ");
-                ////console.log(badTextTokens);
                 indexBot(badTextTokens, fileData.name, textPriority, currDoc, i);
 
 
             }
 
             message = {
-                status:true,
-                message:"The file " + fileData.name +" has been indexed"
+                status: true,
+                message: "The file " + fileData.name + " has been indexed"
             };
             return message;
         }
     }
 
     /*
-* This function takes in terms with spaces, commas and other alpha-numerical characters
-* It also takes in the mapped index created from the files and a callback to send notification of error or returns a result
-* @params {object} indexMap
-* @params {string} theTerms
-* @params {function} done
-*/
+     * This function takes in terms with spaces, commas and other alpha-numerical characters
+     * It also takes in the mapped index created from the files and a callback to send notification of error or returns a result
+     * @params {object} indexMap
+     * @params {string} theTerms
+     * @params {function} done
+     */
 
     function getIndex(fileName) {
         if (fileName && typeof fileName === "string") {
@@ -201,8 +215,7 @@ window.Index = (function () {
 
         if (typeof query === "string") {
             var splitedKeys = query.split(' ');
-        }
-        else if (typeof query[0] === "string") {
+        } else if (typeof query[0] === "string") {
             var splitedKeys = query;
         }
 
@@ -211,11 +224,8 @@ window.Index = (function () {
 
             //Check if the keys have been used during the present search
             if (usedKeys.indexOf(newKeys) < 0) {
-                if (opts.fileName === "all") {
-                    var sResult = searchAll(newKeys);
-                    console.log(sResult);
-                }
-                else {
+                if (opts === undefined) {
+                } else {
                     var sResult = searchOne(newKeys, opts.fileName);
                 }
                 //keep track of used terms

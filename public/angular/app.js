@@ -91,6 +91,12 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                     })()
                 }
             }, 1000);
+        } else {
+            $scope.flashMessage = {
+                message:success.message,
+                status:false,
+                error:true
+            };
         }
     }
 
@@ -103,18 +109,21 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
     //start of search Index
     $scope.searchIndex = function () {
         delete($scope.searchResult);
-        console.log($scope.choose);
+        console.log($scope.sear)
+        delete($scope.searchMessage);
 
         if ($scope.choose === "all") {
-            console.log($scope.searchResult);
             var terms = $scope.search;
-            // console.log($scope.indexMap);
-            var options = {
-                fileName: "all"
-            };
-            var result = Index.searchIndex(terms, options);
+            var result = Index.searchIndex(terms);
 
             $scope.searchResult = result.data;
+            console.log($scope.searchResult);
+            if($scope.searchResult === undefined) {
+                $scope.searchMessage = {
+                    status:true,
+                    message:"Opps!!. '"+ terms + "' was not found in any files"
+                };
+            }
 
         } else {
             var options = {
@@ -124,9 +133,18 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var result = Index.searchIndex(terms, options);
 
             $scope.searchResult = result.data;
-            console.log($scope.searchResult);
+            console.log($scope.searchResult.length);
+            if($scope.searchResult.length <= 0) {
+                $scope.searchMessage = {
+                    status:true,
+                    message: "Opps!!. '" + terms + "' was not found in " + $scope.choose
+                };
+            }
+            
 
         }
 
     };
+
+
 });
