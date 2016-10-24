@@ -72,11 +72,15 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                 message:success.message,
                 status:true
             };
+            if($scope.rawIndex["empty.json"] && $scope.rawIndex["random.json"]) {
+                delete($scope.rawIndex["empty.json"]);
+                delete($scope.rawIndex["randon.json"]);
+            }
             var result = Index.getIndex();
             console.log(result[fileData.name]);
-            var docLen = result[fileData.name]._size;
+            var docLen = result[fileData.name]._docsLen;
 
-            delete(result[fileData.name]._size);
+            delete(result[fileData.name]._docsLen);
 
 
             $timeout(function () {
@@ -109,19 +113,18 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
     //start of search Index
     $scope.searchIndex = function () {
         delete($scope.searchResult);
-        console.log($scope.sear)
         delete($scope.searchMessage);
 
         if ($scope.choose === "all") {
             var terms = $scope.search;
             var result = Index.searchIndex(terms);
 
-            $scope.searchResult = result.data;
+            $scope.searchResult = result.result;
             console.log($scope.searchResult);
-            if($scope.searchResult === undefined) {
+            if(result.message) {
                 $scope.searchMessage = {
                     status:true,
-                    message:"Opps!!. '"+ terms + "' was not found in any files"
+                    message:result.message
                 };
             }
 
@@ -132,7 +135,7 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var terms = $scope.search;
             var result = Index.searchIndex(terms, options);
 
-            $scope.searchResult = result.data;
+            $scope.searchResult = result.result;
             console.log($scope.searchResult.length);
             if($scope.searchResult.length <= 0) {
                 $scope.searchMessage = {
