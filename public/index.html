@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/style.css"/>
         
         <script src="src/inverted-index.js"></script>
+        <script src="src/helpers.js"></script>
         <script type="text/javascript" src="angular/angular.min.js"></script>
 
         <script type="text/javascript" src="angular/app.js"></script>
@@ -76,9 +77,14 @@
 
                 <!--end of form-->
                 <div class="row">
-                  <h3 ng-show="">No results</h3>
+                   <div class="col-md-12">
+                    <div class="alert alert-warning my-alert no-round" ng-show="searchMessage.status">
+                        <h3>{{ searchMessage.message }}</h3>
+                    </div>
+                  </div>
                   <div class="col-md-12">
-                    <div class="alert alert-info my-alert no-round" ng-repeat="search in searchResult">
+                    <div class="alert alert-info my-alert no-round" style="position:relative" ng-repeat="search in searchResult">
+                        <div class="ribbon-wrapper-green"><div class="ribbon-green">{{ search.fileName }}</div></div>
                         <h3>{{ search.source.title }}</h3>
                         <h5>{{ search.source.text }}</h5>
                     </div>
@@ -107,6 +113,10 @@
                                 <div class="alert alert-success" ng-show="flashMessage.status">
                                     <i class="fa fa-close pull-right" data-dismiss="alert"></i>
                                     <i class="fa fa-check-circle"></i> {{ flashMessage.message }}
+                                </div>
+                                <div class="alert alert-danger" ng-show="flashMessage.error">
+                                    <i class="fa fa-close pull-right" data-dismiss="alert"></i>
+                                    <i class="fa fa-exclamation-triangle"></i> {{ flashMessage.message }}
                                 </div>
                             </div>
                         </div>

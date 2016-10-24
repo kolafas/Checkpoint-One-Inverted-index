@@ -1,3 +1,4 @@
+
 var mockFiles = [
     [{
             "title": "Alice of in Wonderland",
@@ -17,7 +18,7 @@ var mockFiles = [
 
         {
             "title": "The sheep: The Fellowship sleep of the Ring.",
-            "text": "elf, dwarf, wizard and hobbit seek to destroy a king powerful ring."
+            "text": "elf, dwarf, rings wizard and hobbit seek to destroy a king powerful ring."
         }
     ]
 ];
@@ -44,11 +45,7 @@ describe("Read book data", function () {
 //Populate Index
 
 describe("Populate Index", function () {
-    var result = {};
     //makes sure to empty indexMap
-    beforeAll(function () {
-        var result = {};
-    });
 
     it("should verify that the index is created once the Json file has been read", function () {
         var file = {
@@ -56,12 +53,41 @@ describe("Populate Index", function () {
             documents: mockFiles[0]
         };
 
-        Index.createIndex(file);
-        var result = Index.getIndex(file.name);
-        var count = Object.keys(result).length;
+        var result = Index.createIndex(file);
+        console.log(result);
 
-        expect(count > 0).toBeTruthy();
+        expect(result.message).toBe("The file " + file.name + " has been indexed")
     });
+
+    it("Should return an err if json file is empty", function () {
+        var file = {
+            name:"Empty file",
+            documents:undefined
+        };
+
+        var result = Index.createIndex(file);
+        expect(result.status).toBeFalsy();
+        expect(result.message).toBe(file.name + ' file is empty');
+    });
+
+    it("should return an err if json file is not in correct format", function () {
+        var file = {
+            name: "Random file",
+            documents: [{
+                alice: "sure",
+                desc: "text"
+            },
+                {
+                    alice: "sure",
+                    desc: "text"
+                }
+            ]
+        };
+
+        var result = Index.createIndex(file);
+        expect(result.status).toBeFalsy();
+        expect(result.message).toBe(file.name +' file is not in the correct format');
+    })
 
     it("should map the string keys to the correct objects in the JSON array", function () {
         // console.log(indexMap);
@@ -72,7 +98,8 @@ describe("Populate Index", function () {
 
         Index.createIndex(file);
         var result = Index.getIndex(file.name);
-        delete(result._size);
+        console.log(result, "line 105");
+        delete(result._docsLen);
         Object.keys(result).forEach(function (key) {
             Object.keys(result[key]).forEach(function (id) {
                 var doc = result[key][id].source;
@@ -98,8 +125,8 @@ describe("Populate Index", function () {
         Index.createIndex(fileTwo);
 
         var result = Index.getIndex();
-        delete(result["Mockfile"]);
         console.log(result);
+        delete(result["Mockfile"]);
         expect(Object.keys(result).length > 0).toBeTruthy();
     });
 });
@@ -113,48 +140,6 @@ describe("Search Index", function () {
         var searchResults = [];
     });
 
-    it("should return the correct result when searched", function () {
-
-        var query = "judge sleep",
-            check = [],
-            options = {
-                fileName: "Mockfile-two"
-            };
-
-        searchResults = Index.searchIndex(query, options);
-        console.log(searchResults);
-
-        if (Array.isArray(query)) {
-            query.map(function (key) {
-                var newKey = Index.tokenize(key);
-
-                Object.keys(searchResults.data).forEach(function (id) {
-                    var title = searchResults.data[id].source.title;
-                    var text = searchResults.data[id].source.text;
-
-                    if (title.indexOf(newKey) >= 0 || text.indexOf(newKey) >= 0) {
-                        check.push(1);
-                    }
-                });
-            });
-        } else {
-            query.split(" ").map(function (key) {
-                var newKey = Index.tokenize(key);
-
-                Object.keys(searchResults.data).forEach(function (id) {
-                    var title = searchResults.data[id].source.title;
-                    var text = searchResults.data[id].source.text;
-
-                    if (title.indexOf(newKey) >= 0 || text.indexOf(newKey) >= 0) {
-                        check.push(1);
-                    }
-                });
-            });
-        }
-
-        expect(check.length >= 0).toBeTruthy();
-    });
-
     // it("should not take too long to execute", function () {
 
 
@@ -163,22 +148,29 @@ describe("Search Index", function () {
     // });
 
     it("should handle an array of search terms", function () {
-        var query = ['the', 'lord', 'of'],
-            options = {
-                fileName: 'all'
-            };
+        var query = "the lord of the Rings";
+        var opts = {
+            fileName:"Mockfile-two"
+        }
+        searchResults = Index.searchIndex(query, opts);
+        console.log(searchResults, "Search result");
 
-        searchResults = Index.searchIndex(query, options);
-        console.log(searchResults.data);
+        expect(searchResults.result.length > 0).toBeTruthy();
 
-        expect(searchResults.data.length > 0).toBeTruthy();
-
+    });
+    it("should return message for empty searchResults", function () {
+        var query = "";
+        var opts = {
+            fileName:"Mockfile-two"
+        }
+        searchResults = Index.searchIndex(query, opts);
+        expect(searchResults.message).toBe('There are no files with that word');
     });
 });
 
 describe("Get Index", function () {
     it("should take a string specifying the location of the JSON data", function () {
         var check = Index.getIndex('Mockfile-one');
-        expect(check._size.length > 0).toBeTruthy();
+        expect(check._docsLen.length > 0).toBeTruthy();
     });
 });

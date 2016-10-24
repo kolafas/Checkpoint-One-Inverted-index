@@ -11,7 +11,6 @@ myapp.directive("theFileSelected", ["$window", function ($window) {
             ele.bind("change", function (e) {
 
                 var fileData = e.target.files[0];
-                //console.log(fileData)
                 //check if it a json file
                 if (fileData.name.indexOf('json') >= 0) {
                     theFileName = fileData.name;
@@ -51,19 +50,16 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
     };
 
     $scope.checkLoad = function () {
-        console.log($scope.file);
 
         $timeout(function () {
             $scope.rawIndex[$scope.file.name] = angular.copy($scope.file);
-            console.log($scope.rawIndex);
         }, 1000);
     }
 
 
     $scope.createIndex = function (fileName) {
         //using the fileName to get the stored data from the indexMap
-        var fileData = $scope.rawIndex[fileName];
-        console.log(fileData);
+        var fileData = $scope.rawIndex[fileName];;
         //send  the data for indexing and use a callback to get the result or errors
         var success = Index.createIndex(fileData);
         
@@ -72,11 +68,14 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                 message:success.message,
                 status:true
             };
+            if($scope.rawIndex["empty.json"] && $scope.rawIndex["random.json"]) {
+                delete($scope.rawIndex["empty.json"]);
+                delete($scope.rawIndex["randon.json"]);
+            }
             var result = Index.getIndex();
-            console.log(result[fileData.name]);
-            var docLen = result[fileData.name]._size;
+            var docLen = result[fileData.name]._docsLen;
 
-            delete(result[fileData.name]._size);
+            delete(result[fileData.name]._docsLen);
 
 
             $timeout(function () {
@@ -91,6 +90,12 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                     })()
                 }
             }, 1000);
+        } else {
+            $scope.flashMessage = {
+                message:success.message,
+                status:false,
+                error:true
+            };
         }
     }
 
@@ -103,18 +108,19 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
     //start of search Index
     $scope.searchIndex = function () {
         delete($scope.searchResult);
-        console.log($scope.choose);
+        delete($scope.searchMessage);
 
         if ($scope.choose === "all") {
-            console.log($scope.searchResult);
             var terms = $scope.search;
-            // console.log($scope.indexMap);
-            var options = {
-                fileName: "all"
-            };
-            var result = Index.searchIndex(terms, options);
+            var result = Index.searchIndex(terms);
 
-            $scope.searchResult = result.data;
+            $scope.searchResult = result.result;
+            if(result.message) {
+                $scope.searchMessage = {
+                    status:true,
+                    message:result.message
+                };
+            }
 
         } else {
             var options = {
@@ -123,10 +129,18 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var terms = $scope.search;
             var result = Index.searchIndex(terms, options);
 
-            $scope.searchResult = result.data;
-            console.log($scope.searchResult);
+            $scope.searchResult = result.result;
+            if($scope.searchResult.length <= 0) {
+                $scope.searchMessage = {
+                    status:true,
+                    message: "Opps!!. '" + terms + "' was not found in " + $scope.choose
+                };
+            }
+            
 
         }
 
     };
+
+
 });
