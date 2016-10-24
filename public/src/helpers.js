@@ -184,7 +184,6 @@ return {
     queryChecker:queryChecker,
     resultExist:resultExist,
     fileChecker:fileChecker,
-    indexer:indexer,
     removeDuplicates:removeDuplicates
 };
 
