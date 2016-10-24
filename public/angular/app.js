@@ -11,7 +11,6 @@ myapp.directive("theFileSelected", ["$window", function ($window) {
             ele.bind("change", function (e) {
 
                 var fileData = e.target.files[0];
-                //console.log(fileData)
                 //check if it a json file
                 if (fileData.name.indexOf('json') >= 0) {
                     theFileName = fileData.name;
@@ -51,19 +50,16 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
     };
 
     $scope.checkLoad = function () {
-        console.log($scope.file);
 
         $timeout(function () {
             $scope.rawIndex[$scope.file.name] = angular.copy($scope.file);
-            console.log($scope.rawIndex);
         }, 1000);
     }
 
 
     $scope.createIndex = function (fileName) {
         //using the fileName to get the stored data from the indexMap
-        var fileData = $scope.rawIndex[fileName];
-        console.log(fileData);
+        var fileData = $scope.rawIndex[fileName];;
         //send  the data for indexing and use a callback to get the result or errors
         var success = Index.createIndex(fileData);
         
@@ -77,7 +73,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                 delete($scope.rawIndex["randon.json"]);
             }
             var result = Index.getIndex();
-            console.log(result[fileData.name]);
             var docLen = result[fileData.name]._docsLen;
 
             delete(result[fileData.name]._docsLen);
@@ -120,7 +115,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var result = Index.searchIndex(terms);
 
             $scope.searchResult = result.result;
-            console.log($scope.searchResult);
             if(result.message) {
                 $scope.searchMessage = {
                     status:true,
@@ -136,7 +130,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var result = Index.searchIndex(terms, options);
 
             $scope.searchResult = result.result;
-            console.log($scope.searchResult.length);
             if($scope.searchResult.length <= 0) {
                 $scope.searchMessage = {
                     status:true,
