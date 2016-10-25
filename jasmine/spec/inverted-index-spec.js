@@ -54,7 +54,6 @@ describe("Populate Index", function () {
         };
 
         var result = Index.createIndex(file);
-        console.log(result);
 
         expect(result.message).toBe("The file " + file.name + " has been indexed")
     });
@@ -90,7 +89,6 @@ describe("Populate Index", function () {
     })
 
     it("should map the string keys to the correct objects in the JSON array", function () {
-        // console.log(indexMap);
         var file = {
             name: "Mockfile",
             documents: mockFiles[0]
@@ -98,12 +96,10 @@ describe("Populate Index", function () {
 
         Index.createIndex(file);
         var result = Index.getIndex(file.name);
-        console.log(result, "line 105");
         delete(result._docsLen);
         Object.keys(result).forEach(function (key) {
             Object.keys(result[key]).forEach(function (id) {
                 var doc = result[key][id].source;
-                // console.log(mockFiles[0][id]);
                 expect(doc.title === mockFiles[0][id].title).toBeTruthy();
                 expect(doc.text === mockFiles[0][id].text).toBeTruthy();
             });
@@ -125,7 +121,6 @@ describe("Populate Index", function () {
         Index.createIndex(fileTwo);
 
         var result = Index.getIndex();
-        console.log(result);
         delete(result["Mockfile"]);
         expect(Object.keys(result).length > 0).toBeTruthy();
     });
@@ -139,21 +134,12 @@ describe("Search Index", function () {
     beforeEach(function () {
         var searchResults = [];
     });
-
-    // it("should not take too long to execute", function () {
-
-
-    //     var date = new Date();
-    //     console.log(date);
-    // });
-
     it("should handle an array of search terms", function () {
         var query = "the lord of the Rings";
         var opts = {
             fileName:"Mockfile-two"
         }
         searchResults = Index.searchIndex(query, opts);
-        console.log(searchResults, "Search result");
 
         expect(searchResults.result.length > 0).toBeTruthy();
 

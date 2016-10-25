@@ -73,10 +73,8 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                 delete($scope.rawIndex["randon.json"]);
             }
             var result = Index.getIndex();
+            console.log(result);
             var docLen = result[fileData.name]._docsLen;
-
-            delete(result[fileData.name]._docsLen);
-
 
             $timeout(function () {
                 $scope.indexMap[fileData.name] = {
@@ -114,12 +112,13 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var terms = $scope.search;
             var result = Index.searchIndex(terms);
 
+            console.log(result);
             $scope.searchResult = result.result;
-            if(result.message) {
-                $scope.searchMessage = {
+            if($scope.searchResult === undefined) {
+                 $scope.searchMessage = {
                     status:true,
                     message:result.message
-                };
+                }
             }
 
         } else {
@@ -131,10 +130,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
 
             $scope.searchResult = result.result;
             if($scope.searchResult.length <= 0) {
-                $scope.searchMessage = {
-                    status:true,
-                    message: "Opps!!. '" + terms + "' was not found in " + $scope.choose
-                };
             }
             
 

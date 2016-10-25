@@ -1,7 +1,6 @@
 
 window.helpers = (function () {
 
-
 /**
 * sanitizer function
 * 
@@ -15,8 +14,6 @@ function sanitizer(tokens) {
     //send out the new token
     return newToken;
 };
-
-
 
 /**
  * fileChecker
@@ -117,7 +114,6 @@ function removeDuplicates(arr){
         return index == self.indexOf(elem);
     })
 }
-
 
 
 /**
