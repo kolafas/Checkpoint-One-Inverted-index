@@ -73,7 +73,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
                 delete($scope.rawIndex["randon.json"]);
             }
             var result = Index.getIndex();
-            console.log(result);
             var docLen = result[fileData.name]._docsLen;
 
             $timeout(function () {
@@ -112,7 +111,6 @@ myapp.controller("invertedIndexCtrl", function ($scope, $timeout) {
             var terms = $scope.search;
             var result = Index.searchIndex(terms);
 
-            console.log(result);
             $scope.searchResult = result.result;
             if($scope.searchResult === undefined) {
                  $scope.searchMessage = {
