@@ -1,11 +1,7 @@
 window.Index = (function () {
 
-
-
     var indexMap = {};
 
-
-    
     /**
      * IndexBot
      * 
@@ -39,9 +35,6 @@ window.Index = (function () {
 
         });
     }
-
-
-
 
     /**
      * Create Index function
